@@ -1,0 +1,75 @@
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ include "taiko-nethermind.fullname" . }}
+  labels:
+    {{- include "taiko-nethermind.labels" . | nindent 4 }}
+data:
+  # General
+  NETHERMIND_CONFIG: {{ .Values.config.NETHERMIND_CONFIG | quote }}
+  {{- with .Values.config.NETHERMIND_INITCONFIG_BASEDBPATH }}
+  NETHERMIND_INITCONFIG_BASEDBPATH: {{ . | quote }}
+  {{- end }}
+
+  # Json RPC
+  NETHERMIND_JSONRPCCONFIG_ENABLED: {{ .Values.config.NETHERMIND_JSONRPCCONFIG_ENABLED | quote }}
+  NETHERMIND_JSONRPCCONFIG_ENABLEDMODULES: {{ .Values.config.NETHERMIND_JSONRPCCONFIG_ENABLEDMODULES | quote }}
+  NETHERMIND_JSONRPCCONFIG_HOST: {{ .Values.config.NETHERMIND_JSONRPCCONFIG_HOST | quote }}
+  NETHERMIND_JSONRPCCONFIG_PORT: {{ .Values.service.ports.http | quote }}
+  NETHERMIND_JSONRPCCONFIG_WEBSOCKETSPORT: {{ .Values.service.ports.ws | quote }}
+  NETHERMIND_JSONRPCCONFIG_ENGINEHOST: {{ .Values.config.NETHERMIND_JSONRPCCONFIG_ENGINEHOST | quote }}
+  NETHERMIND_JSONRPCCONFIG_ENGINEPORT: {{ .Values.service.ports.authrpc | quote }}
+  NETHERMIND_JSONRPCCONFIG_ENGINEENABLEDMODULES: {{ .Values.config.NETHERMIND_JSONRPCCONFIG_ENGINEENABLEDMODULES | quote }}
+  {{- with .Values.config.NETHERMIND_JSONRPCCONFIG_JWTSECRETFILE }}
+  NETHERMIND_JSONRPCCONFIG_JWTSECRETFILE: {{ . | quote }}
+  {{- end }}
+
+  # Healthchecks
+  NETHERMIND_HEALTHCHECKSCONFIG_ENABLED: {{ .Values.config.NETHERMIND_HEALTHCHECKSCONFIG_ENABLED | quote }}
+  {{- with .Values.config.NETHERMIND_HEALTHCHECKSCONFIG_LOWSTORAGESPACESHUTDOWNTHRESHOLD }}
+  NETHERMIND_HEALTHCHECKSCONFIG_LOWSTORAGESPACESHUTDOWNTHRESHOLD: {{ . | quote }}
+  {{- end }}
+
+  # Network
+  {{- with .Values.config.NETHERMIND_NETWORKCONFIG_MAXACTIVEPEERS }}
+  NETHERMIND_NETWORKCONFIG_MAXACTIVEPEERS: {{ . | quote }}
+  {{- end }}
+
+  # Metrics
+  {{- if .Values.metrics.enabled }}
+  NETHERMIND_METRICSCONFIG_ENABLED: "true"
+  {{- end }}
+  {{- with .Values.config.NETHERMIND_METRICSCONFIG_EXPOSEHOST }}
+  NETHERMIND_METRICSCONFIG_EXPOSEHOST: {{ . | quote }}
+  {{- end }}
+  NETHERMIND_METRICSCONFIG_EXPOSEPORT: {{ .Values.service.ports.metrics | quote }}
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ include "taiko-nethermind.fullname" . }}-scripts
+  labels:
+    {{- include "taiko-nethermind.labels" . | nindent 4 }}
+data:
+  init.sh: |
+    #!/usr/bin/env bash
+
+    echo "Starting init script for pod ${POD_NAME}..."
+    touch /shared/env
+
+    echo "Getting node external ip..."
+    EXTERNAL_NODE_IP=$(kubectl get node $NODE_NAME -o jsonpath='{.status.addresses[?(@.type=="ExternalIP")].address}')
+    echo "Getting execution node port..."
+    EXTERNAL_NODE_PORT=$(kubectl get services -l "pod=${POD_NAME},client=taiko-nethermind,type=p2p" -o jsonpath='{.items[0].spec.ports[0].nodePort}')
+
+    echo "EXTERNAL_NODE_IP=${EXTERNAL_NODE_IP}"
+    echo "EXTERNAL_NODE_PORT=${EXTERNAL_NODE_PORT}"
+
+    echo "export EXTERNAL_NODE_IP=${EXTERNAL_NODE_IP}" >> /shared/env
+    echo "export EXTERNAL_NODE_PORT=${EXTERNAL_NODE_PORT}" >> /shared/env
+
+    {{- if .Values.global.secret.jwt }}
+    echo "{{ .Values.global.secret.jwt }}" >> /shared/jwtsecret
+    {{- end }}
+    exit 0

@@ -22,7 +22,7 @@ spec:
     scrapeTimeout: {{ .Values.metrics.serviceMonitor.scrapeTimeout }}
     {{- end }}
     honorLabels: true
-    port: beacon-metrics
+    port: metrics
     path: {{ .Values.metrics.serviceMonitor.path }}
     scheme: {{ .Values.metrics.serviceMonitor.scheme }}
     {{- if .Values.metrics.serviceMonitor.tlsConfig }}

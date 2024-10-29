@@ -16,36 +16,49 @@ image:
   # Overrides the image tag whose default is the chart appVersion.
   tag: "taiko-b8f32a5"
 
-# This is the full list of supported configuration, for additional configuration add env vars to the `env` list or `extraArgs`.
-# Reference: https://docs.nethermind.io/fundamentals/configuration#environment-variables
-config:
-  NETHERMIND_CONFIG: "taiko-hekla"
-  NETHERMIND_JSONRPCCONFIG_ENABLED: "true"
-  NETHERMIND_JSONRPCCONFIG_ENABLEDMODULES: "Web3,Eth,Net,Subscribe,Health"
-  NETHERMIND_JSONRPCCONFIG_HOST: "0.0.0.0"
-  NETHERMIND_JSONRPCCONFIG_JWTSECRETFILE: /shared/jwtsecret
-  NETHERMIND_JSONRPCCONFIG_ENGINEHOST: "0.0.0.0"
-  NETHERMIND_JSONRPCCONFIG_ENGINEENABLEDMODULES: "Web3,Eth,Net,Subscribe,Health"
-  NETHERMIND_HEALTHCHECKSCONFIG_ENABLED: "true"
-  NETHERMIND_HEALTHCHECKSCONFIG_LOWSTORAGESPACESHUTDOWNTHRESHOLD: "0"
+global:
+  network: hekla
+
+networks:
+  hekla:
+    bootnodes: enode://2f7ee605f84362671e7d7c6d47b69a3358b0d87e9ba4648befcae8b19453275ed19059db347c459384c1a3e5486419233c06bf6c4c6f489d81ace6f301a2a446@43.153.55.134:30303,enode://c067356146268d2855ad356c1ce36ba9f78c1633a72f9b7f686679c2ffe04bab6d24e48ef6eefb0e01aa00dff5024f7f94bc583da90b6027f40be4129bbbc5fd@43.153.90.191:30303,enode://acc2bdb6416feddff9734bee1e6de91e684e9df5aeb1d36698cc78b920600aed36a2871e4ad0cf4521afcdc2cde8e2cd410a57038767c356d4ce6c69b9107a5a@170.106.109.12:30303,enode://eb5079aae185d5d8afa01bfd2d349da5b476609aced2b57c90142556cf0ee4a152bcdd724627a7de97adfc2a68af5742a8f58781366e6a857d4bde98de6fe986@34.66.210.65:30303,enode://2294f526cbb7faa778192289c252307420532191438ce821d3c50232e019a797bda8c8f8541de0847e953bb03096123856935e32294de9814d15d120131499ba@34.72.186.213:30303
+    config: taiko-hekla
 
 env: []
   # - name: NETHERMIND_OTHER_CONFIG
   #   value: ""
 
-command:
+defaultCommandTemplate:
   - /nethermind/Nethermind.Runner
   - --Metrics.NodeName=$POD_NAME
   - --Network.ExternalIp=$EXTERNAL_NODE_IP
   - --Network.P2PPort=$EXTERNAL_NODE_PORT
   - --Network.DiscoveryPort=$EXTERNAL_NODE_PORT
+  - --datadir=/data/execution
+  - --JsonRpc.Enabled=true
+  - --JsonRpc.EnabledModules=Eth,Subscribe,Trace,TxPool,Web3,Personal,Proof,Net,Parity,Health,Rpc
+  - --JsonRpc.Host=0.0.0.0
+  - --JsonRpc.Port={{ .Values.service.ports.http }}
+  - --JsonRpc.WebSocketsPort={{ .Values.service.ports.ws }}
+  - --JsonRpc.EngineHost=0.0.0.0
+  - --JsonRpc.EnginePort={{ .Values.service.ports.authrpc }}
+  - --JsonRpc.EngineEnabledModules=Eth,Subscribe,Web3,Net,Health
+  - --JsonRpc.JwtSecretFile=/shared/jwtsecret
+  - --HealthChecks.Enabled=true
+  - --HealthChecks.LowStorageSpaceShutdownThreshold=0
+  - >-
+    {{- if .Values.metrics.enabled }}
+    --Metrics.Enabled=true
+    --Metrics.ExposePort={{ .Values.service.ports.metrics }}
+    --Metrics.ExposeHost="+"
+    {{- end }}
 
 args:
-  - --datadir=/data/execution
-extraArgs: []
-
-secrets:
-  jwtsecret: ""
+ - >-
+  {{- with include "taiko-nethermind.config" . | fromYaml }}
+  --config={{ .config }}
+  --Network.Bootnodes={{ .bootnodes }}
+  {{- end }}
 
 # This is for setting up a service more information can be found here: https://kubernetes.io/docs/concepts/services-networking/service/
 service:

@@ -65,12 +65,7 @@ spec:
               . /shared/env;
               echo "EXTERNAL_NODE_IP=${EXTERNAL_NODE_IP}";
               echo "EXTERNAL_NODE_PORT=${EXTERNAL_NODE_PORT}";
-              echo "Executing command: {{ join " " .Values.command }}";
-              exec {{ join " " .Values.command }}
-          {{- with .Values.args }}
-          {{ $args := concat . $.Values.extraArgs }}
-          args: {{- $args | toYaml | nindent 12 }}
-          {{- end }}
+              {{- include "taiko-nethermind.defaultCommand" . | nindent 14 }}
           ports:
             - name: exec-http
               containerPort: {{ .Values.service.ports.http }}
@@ -102,7 +97,7 @@ spec:
             - name: shared
               mountPath: /shared
           {{- if .Values.persistence.enabled }}
-            - name: nethermind
+            - name: data
               mountPath: {{ .Values.persistence.mountPath }}
           {{- end }}
           {{- with .Values.volumeMounts }}
@@ -116,9 +111,6 @@ spec:
           {{- with .Values.env }}
             {{- toYaml . | nindent 12 }}
           {{- end }}
-          envFrom:
-            - configMapRef:
-                name: {{ include "taiko-nethermind.fullname" . }}
       volumes:
         - name: shared
           emptyDir: {}
@@ -146,7 +138,7 @@ spec:
     - apiVersion: v1
       kind: PersistentVolumeClaim
       metadata:
-        name: nethermind
+        name: data
         labels:
           {{- include "taiko-nethermind.labels" . | nindent 10 }}
       spec:

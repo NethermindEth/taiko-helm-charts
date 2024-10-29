@@ -30,6 +30,8 @@ env: []
   # - name: NETHERMIND_OTHER_CONFIG
   #   value: ""
 
+# -- Template used for the default command
+# @default -- See `values.yaml`
 defaultCommandTemplate:
   - /nethermind/Nethermind.Runner
   - --Metrics.NodeName=$POD_NAME
@@ -55,7 +57,8 @@ defaultCommandTemplate:
     --Metrics.ExposeHost="+"
     {{- end }}
 
-# Append additional arguments to the defaultCommandTemplate
+# -- Additional arguments appended to the defaultCommandTemplate
+# @default -- See `values.yaml`
 args:
   # Will use values from .Values.networks[.Values.global.network]
   - >-

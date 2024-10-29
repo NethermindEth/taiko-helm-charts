@@ -193,6 +193,6 @@ extraObjects: []
 # - apiVersion: v1
 #   kind: Secret
 #   metadata:
-#     name: '{{ include "fullnode.fullname" . }}'
+#     name: '{{ include "taiko-nethermind.fullname" . }}'
 #   stringData:
 #     SECRET_KEY: "<SECRET_VALUE>"

@@ -36,7 +36,7 @@ spec:
             {{- end }}
             backend:
               service:
-                name: {{ include "opExecution.fullname" $ }}
+                name: {{ include "taiko-nethermind.fullname" $ }}
                 port:
                   number: {{ $.Values.service.ports.http }}
           {{- end }}

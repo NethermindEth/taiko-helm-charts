@@ -55,12 +55,14 @@ defaultCommandTemplate:
     --Metrics.ExposeHost="+"
     {{- end }}
 
+# Append additional arguments to the defaultCommandTemplate
 args:
- - >-
-  {{- with include "taiko-nethermind.config" . | fromYaml }}
-  --config={{ .config }}
-  --Network.Bootnodes={{ .bootnodes }}
-  {{- end }}
+  # Will use values from .Values.networks[.Values.global.network]
+  - >-
+    {{- with include "taiko-nethermind.config" . | fromYaml }}
+    --config={{ .config }}
+    --Network.Bootnodes={{ .bootnodes }}
+    {{- end }}
 
 # This is for setting up a service more information can be found here: https://kubernetes.io/docs/concepts/services-networking/service/
 service:

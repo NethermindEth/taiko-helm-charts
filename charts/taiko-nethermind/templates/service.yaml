@@ -4,7 +4,6 @@ kind: Service
 metadata:
   name: {{ include "taiko-nethermind.fullname" . }}
   labels:
-    client: nethermind
     {{- include "taiko-nethermind.labels" . | nindent 4 }}
 spec:
   type: {{ .Values.service.type }}

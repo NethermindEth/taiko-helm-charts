@@ -19,5 +19,11 @@ taiko-client:
       l1Beacon: "http://ethereum-node-holesky-beacon:5052"
 
 taiko-geth:
+  enabled: true
+  global:
+    network: "{{ .Values.global.network }}"
+
+taiko-nethermind:
+  enabled: false
   global:
     network: "{{ .Values.global.network }}"

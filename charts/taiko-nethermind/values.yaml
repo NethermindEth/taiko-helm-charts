@@ -1,0 +1,205 @@
+# This is to override the chart name.
+nameOverride: ""
+fullnameOverride: ""
+
+# This is for the secretes for pulling an image from a private repository more information can be found here: https://kubernetes.io/docs/tasks/configure-pod-container/pull-image-private-registry/
+imagePullSecrets: []
+
+# This will set the replicaset count more information can be found here: https://kubernetes.io/docs/concepts/workloads/controllers/replicaset/
+replicaCount: 1
+
+# This sets the container image more information can be found here: https://kubernetes.io/docs/concepts/containers/images/
+image:
+  repository: nethermindeth/nethermind
+  # This sets the pull policy for images.
+  pullPolicy: IfNotPresent
+  # Overrides the image tag whose default is the chart appVersion.
+  tag: "taiko-b8f32a5"
+
+global:
+  network: hekla
+  secret:
+    jwt: ecb22bc24e7d4061f7ed690ccd5846d7d73f5d2b9733267e12f56790398d908a
+
+networks:
+  hekla:
+    bootnodes: enode://2f7ee605f84362671e7d7c6d47b69a3358b0d87e9ba4648befcae8b19453275ed19059db347c459384c1a3e5486419233c06bf6c4c6f489d81ace6f301a2a446@43.153.55.134:30303,enode://c067356146268d2855ad356c1ce36ba9f78c1633a72f9b7f686679c2ffe04bab6d24e48ef6eefb0e01aa00dff5024f7f94bc583da90b6027f40be4129bbbc5fd@43.153.90.191:30303,enode://acc2bdb6416feddff9734bee1e6de91e684e9df5aeb1d36698cc78b920600aed36a2871e4ad0cf4521afcdc2cde8e2cd410a57038767c356d4ce6c69b9107a5a@170.106.109.12:30303,enode://eb5079aae185d5d8afa01bfd2d349da5b476609aced2b57c90142556cf0ee4a152bcdd724627a7de97adfc2a68af5742a8f58781366e6a857d4bde98de6fe986@34.66.210.65:30303,enode://2294f526cbb7faa778192289c252307420532191438ce821d3c50232e019a797bda8c8f8541de0847e953bb03096123856935e32294de9814d15d120131499ba@34.72.186.213:30303
+    config: taiko-hekla
+
+env: []
+  # - name: NETHERMIND_OTHER_CONFIG
+  #   value: ""
+
+# -- Template used for the default command
+# @default -- See `values.yaml`
+defaultCommandTemplate:
+  - /nethermind/Nethermind.Runner
+  - --Metrics.NodeName=$POD_NAME
+  - --Network.ExternalIp=$EXTERNAL_NODE_IP
+  - --Network.P2PPort=$EXTERNAL_NODE_PORT
+  - --Network.DiscoveryPort=$EXTERNAL_NODE_PORT
+  - --datadir=/data/execution
+  - --JsonRpc.Enabled=true
+  - --JsonRpc.EnabledModules=Eth,Subscribe,Trace,TxPool,Web3,Personal,Proof,Net,Parity,Health,Rpc
+  - --JsonRpc.Host=0.0.0.0
+  - --JsonRpc.Port={{ .Values.service.ports.http }}
+  - --JsonRpc.WebSocketsPort={{ .Values.service.ports.ws }}
+  - --JsonRpc.EngineHost=0.0.0.0
+  - --JsonRpc.EnginePort={{ .Values.service.ports.authrpc }}
+  - --JsonRpc.EngineEnabledModules=Eth,Subscribe,Web3,Net,Health
+  - --JsonRpc.JwtSecretFile=/shared/jwtsecret
+  - --HealthChecks.Enabled=true
+  - --HealthChecks.LowStorageSpaceShutdownThreshold=0
+  - >-
+    {{- if .Values.metrics.enabled }}
+    --Metrics.Enabled=true
+    --Metrics.ExposePort={{ .Values.service.ports.metrics }}
+    --Metrics.ExposeHost="+"
+    {{- end }}
+
+# -- Additional arguments appended to the defaultCommandTemplate
+# @default -- See `values.yaml`
+args:
+  # Will use values from .Values.networks[.Values.global.network]
+  - >-
+    {{- with include "taiko-nethermind.config" . | fromYaml }}
+    --config={{ .config }}
+    --Network.Bootnodes={{ .bootnodes }}
+    {{- end }}
+
+# This is for setting up a service more information can be found here: https://kubernetes.io/docs/concepts/services-networking/service/
+service:
+  # This sets the service type more information can be found here: https://kubernetes.io/docs/concepts/services-networking/service/#publishing-services-service-types
+  type: ClusterIP
+  # This sets the ports more information can be found here: https://kubernetes.io/docs/concepts/services-networking/service/#field-spec-ports
+  ports:
+    # JsonRPC Port
+    http: 8545
+    # JsonRPC WebSockets Port
+    ws: 8546
+    # Engine Port
+    authrpc: 8551
+    # P2P Port
+    p2p: 30313
+    # Metrics Port
+    metrics: 8008
+
+resources: {}
+
+persistence:
+  enabled: false
+  storageClassName: ""
+  mountPath: /data/execution
+  accessModes:
+    - ReadWriteOnce
+  size: 50Gi
+
+# This block is for setting up the ingress for more information can be found here: https://kubernetes.io/docs/concepts/services-networking/ingress/
+ingress:
+  enabled: false
+  className: ""
+  annotations: {}
+    # kubernetes.io/ingress.class: nginx
+    # kubernetes.io/tls-acme: "true"
+  hosts:
+    - host: chart-example.local
+      paths:
+        - path: /
+          pathType: ImplementationSpecific
+  tls: []
+  #  - secretName: chart-example-tls
+  #    hosts:
+  #      - chart-example.local
+
+# Additional volumeMounts on the output Deployment definition.
+volumeMounts: []
+# - name: foo
+#   mountPath: "/etc/foo"
+#   readOnly: true
+
+metrics:
+  enabled: true
+  serviceMonitor:
+    # -- If true, a ServiceMonitor CRD is created for a prometheus operator. https://github.com/coreos/prometheus-operator
+    enabled: false
+    # -- Path to scrape
+    path: /metrics
+    # -- Alternative namespace for ServiceMonitor
+    namespace: null
+    # -- Additional ServiceMonitor labels
+    labels: {}
+    # -- Additional ServiceMonitor annotations
+    annotations: {}
+    # -- ServiceMonitor scrape interval
+    interval: 1m
+    # -- ServiceMonitor scheme
+    scheme: http
+    # -- ServiceMonitor TLS configuration
+    tlsConfig: {}
+    # -- ServiceMonitor scrape timeout
+    scrapeTimeout: 30s
+    # -- ServiceMonitor relabelings
+    relabelings: []
+
+##########################
+# InitContainers
+##########################
+initContainer:
+  image:
+    repository: bitnami/kubectl
+    tag: 1.28
+extraInitContainers: []
+
+# This section builds out the service account more information can be found here: https://kubernetes.io/docs/concepts/security/service-accounts/
+serviceAccount:
+  # Specifies whether a service account should be created
+  create: true
+  # Automatically mount a ServiceAccount's API credentials?
+  automount: true
+  # Annotations to add to the service account
+  annotations: {}
+  # The name of the service account to use.
+  # If not set and create is true, a name is generated using the fullname template
+  name: ""
+
+# This is for setting Kubernetes Annotations to a Pod.
+# For more information checkout: https://kubernetes.io/docs/concepts/overview/working-with-objects/annotations/
+podAnnotations: {}
+# This is for setting Kubernetes Labels to a Pod.
+# For more information checkout: https://kubernetes.io/docs/concepts/overview/working-with-objects/labels/
+podLabels: {}
+
+podSecurityContext: {}
+  # fsGroup: 2000
+
+securityContext: {}
+  # capabilities:
+  #   drop:
+  #   - ALL
+  # readOnlyRootFilesystem: true
+  # runAsNonRoot: true
+  # runAsUser: 1000
+
+# Additional volumes on the output Deployment definition.
+volumes: []
+# - name: foo
+#   secret:
+#     secretName: mysecret
+#     optional: false
+
+nodeSelector: {}
+
+tolerations: []
+
+affinity: {}
+
+rbac:
+  create: true
+
+extraObjects: []
+# - apiVersion: v1
+#   kind: Secret
+#   metadata:
+#     name: '{{ include "taiko-nethermind.fullname" . }}'
+#   stringData:
+#     SECRET_KEY: "<SECRET_VALUE>"

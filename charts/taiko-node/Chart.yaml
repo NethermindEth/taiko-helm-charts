@@ -10,6 +10,11 @@ dependencies:
   - name: taiko-geth
     version: "0.1.1"
     repository: "file://../taiko-geth"
+    condition: taiko-geth.enabled
+  - name: taiko-nethermind
+    version: "0.0.1"
+    repository: "file://../taiko-nethermind"
+    condition: taiko-nethermind.enabled
   - name: taiko-client
     version: "0.1.3"
     repository: "file://../taiko-client"

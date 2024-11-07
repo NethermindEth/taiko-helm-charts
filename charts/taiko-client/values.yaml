@@ -101,3 +101,9 @@ mainnet:
     taikoL2: "0x1670000000000000000000000000000000010001"
   driver:
     checkpointUrl: "https://rpc.mainnet.taiko.xyz"
+
+nodeSelector: {}
+
+tolerations: []
+
+affinity: {}

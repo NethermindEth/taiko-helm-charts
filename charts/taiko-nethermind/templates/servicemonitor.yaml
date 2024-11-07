@@ -1,0 +1,44 @@
+{{- if .Values.metrics.serviceMonitor.enabled }}
+---
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: {{ include "taiko-nethermind.fullname" . }}
+  {{- if .Values.metrics.serviceMonitor.namespace }}
+  namespace: {{ .Values.metrics.serviceMonitor.namespace }}
+  {{- end }}
+  labels:
+    {{- include "taiko-nethermind.labels" . | nindent 4 }}
+    {{- if .Values.metrics.serviceMonitor.labels }}
+    {{- toYaml .Values.metrics.serviceMonitor.labels | nindent 4 }}
+    {{- end }}
+  {{- if .Values.metrics.serviceMonitor.annotations }}
+  annotations:
+  {{ toYaml .Values.metrics.serviceMonitor.annotations | nindent 4 }}
+  {{- end }}
+spec:
+  endpoints:
+  - interval: {{ .Values.metrics.serviceMonitor.interval }}
+    {{- if .Values.metrics.serviceMonitor.scrapeTimeout }}
+    scrapeTimeout: {{ .Values.metrics.serviceMonitor.scrapeTimeout }}
+    {{- end }}
+    honorLabels: true
+    port: metrics
+    path: {{ .Values.metrics.serviceMonitor.path }}
+    scheme: {{ .Values.metrics.serviceMonitor.scheme }}
+    {{- if .Values.metrics.serviceMonitor.tlsConfig }}
+    tlsConfig:
+    {{- toYaml .Values.metrics.serviceMonitor.tlsConfig | nindent 6 }}
+    {{- end }}
+    {{- if .Values.metrics.serviceMonitor.relabelings }}
+    relabelings:
+    {{- toYaml .Values.metrics.serviceMonitor.relabelings | nindent 4 }}
+    {{- end }}
+  jobLabel: {{ include "taiko-nethermind.fullname" . }}
+  selector:
+    matchLabels:
+      {{- include "taiko-nethermind.selectorLabels" . | nindent 6 }}
+  namespaceSelector:
+    matchNames:
+      - {{ .Release.Namespace }}
+{{- end }}

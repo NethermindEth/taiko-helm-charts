@@ -1,0 +1,51 @@
+apiVersion: v1
+entries:
+  taiko-client:
+  - apiVersion: v2
+    created: "2024-11-07T17:52:42.262174761Z"
+    description: A Helm chart for Kubernetes
+    digest: 584873bf585c934ee509a300fbeed98c3e368a6e1eb0c83bb9bb37821397d5bb
+    maintainers:
+    - name: d1onys1us
+    name: taiko-client
+    type: application
+    urls:
+    - https://github.com/NethermindEth/taiko-helm-charts/releases/download/taiko-client-0.1.4/taiko-client-0.1.4.tgz
+    version: 0.1.4
+  taiko-nethermind:
+  - apiVersion: v2
+    created: "2024-11-07T17:52:42.365706685Z"
+    description: A Helm chart for Kubernetes
+    digest: b835679a2845d2e5d6c099a04b840be3ac154b768d1cd1a489d62fd1bbeaab6f
+    maintainers:
+    - name: 0xDones
+    name: taiko-nethermind
+    type: application
+    urls:
+    - https://github.com/NethermindEth/taiko-helm-charts/releases/download/taiko-nethermind-0.0.1/taiko-nethermind-0.0.1.tgz
+    version: 0.0.1
+  taiko-node:
+  - apiVersion: v2
+    created: "2024-11-07T17:52:42.505060805Z"
+    dependencies:
+    - condition: taiko-geth.enabled
+      name: taiko-geth
+      repository: file://../taiko-geth
+      version: 0.1.1
+    - condition: taiko-nethermind.enabled
+      name: taiko-nethermind
+      repository: file://../taiko-nethermind
+      version: 0.0.1
+    - name: taiko-client
+      repository: file://../taiko-client
+      version: 0.1.4
+    description: This is an umbrella chart for running a Taiko node.
+    digest: 832818d2b5892d5bac9d43d97de6094a2ecb6c1d5ec7e230bc71db4190870d33
+    maintainers:
+    - name: d1onys1us
+    name: taiko-node
+    type: application
+    urls:
+    - https://github.com/NethermindEth/taiko-helm-charts/releases/download/taiko-node-0.1.3/taiko-node-0.1.3.tgz
+    version: 0.1.3
+generated: "2024-11-07T17:52:42.505071806Z"

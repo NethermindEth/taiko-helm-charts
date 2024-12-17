@@ -61,6 +61,7 @@ A Helm chart for Kubernetes
 | clientArgs.prover[7] | string | `"--raiko.host={{ (index .Values .Values.global.network).prover.raikoHost }}"` |  |
 | clientArgs.prover[8] | string | `"--tx.gasLimit={{ (index .Values .Values.global.network).prover.txGasLimit }}"` |  |
 | clientArgs.prover[9] | string | `"--tx.minBaseFee={{ (index .Values .Values.global.network).prover.txMinBaseFee }}"` |  |
+| env | list | `[]` |  |
 | global.l1Endpoints.l1Beacon | string | `"http://ethereum-node-beacon:5052"` |  |
 | global.l1Endpoints.l1Http | string | `"http://ethereum-node-execution:8545"` |  |
 | global.l1Endpoints.l1Ws | string | `"ws://ethereum-node-execution:8546"` |  |
@@ -81,7 +82,6 @@ A Helm chart for Kubernetes
 | global.secret.privateKeys.guardian | string | `""` |  |
 | global.secret.privateKeys.proposer | string | `""` |  |
 | global.secret.privateKeys.prover | string | `""` |  |
-| guardian.env | list | `[]` |  |
 | hekla.driver.checkpointUrl | string | `"https://rpc.hekla.taiko.xyz"` |  |
 | hekla.image.pullPolicy | string | `"IfNotPresent"` |  |
 | hekla.image.repository | string | `"us-docker.pkg.dev/evmchain/images/taiko-client"` |  |
@@ -97,8 +97,6 @@ A Helm chart for Kubernetes
 | mainnet.l1ContractAddresses.taikoToken | string | `"0x10dea67478c5F8C5E2D90e5E9B26dBe60c54d800"` |  |
 | mainnet.l2ContractAddresses.taikoL2 | string | `"0x1670000000000000000000000000000000010001"` |  |
 | nodeSelector | object | `{}` |  |
-| proposer.env | list | `[]` |  |
-| prover.env | list | `[]` |  |
 | tolerations | list | `[]` |  |
 
 ----------------------------------------------

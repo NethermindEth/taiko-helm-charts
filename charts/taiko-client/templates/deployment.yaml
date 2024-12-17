@@ -26,27 +26,39 @@ spec:
         imagePullPolicy: "{{ (index .Values .Values.global.network).image.pullPolicy }}"
         {{- if eq .Values.global.mode "proposer" }}
         env:
+          {{- if .Values.proposer.env }}
+          {{- toYaml .Values.proposer.env | nindent 10 }}
+          {{- else }}
           - name: PROPOSER_PRIVATE_KEY
             valueFrom:
               secretKeyRef:
                 name: {{ include "taiko-client.fullname" . }}-proposer-private-key
                 key: default
+          {{- end }}
         {{- end }}
         {{- if eq .Values.global.mode "prover" }}
         env:
+          {{- if .Values.prover.env }}
+          {{- toYaml .Values.prover.env | nindent 10 }}
+          {{- else }}
           - name: PROVER_PRIVATE_KEY
             valueFrom:
               secretKeyRef:
                 name: {{ include "taiko-client.fullname" . }}-prover-private-key
                 key: default
+          {{- end }}
         {{- end }}
         {{- if eq .Values.global.mode "guardian" }}
         env:
+          {{- if .Values.guardian.env }}
+          {{- toYaml .Values.guardian.env | nindent 10 }}
+          {{- else }}
           - name: GUARDIAN_PRIVATE_KEY
             valueFrom:
               secretKeyRef:
                 name: {{ include "taiko-client.fullname" . }}-guardian-private-key
                 key: default
+          {{- end }}
         {{- end }}
         volumeMounts:
           - name: jwtsecret

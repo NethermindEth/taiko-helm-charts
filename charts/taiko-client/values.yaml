@@ -14,6 +14,13 @@ global:
   # WARN: do not commit these values, using external secrets is recommended
   secret:
     jwt: ecb22bc24e7d4061f7ed690ccd5846d7d73f5d2b9733267e12f56790398d908a
+    createProposerPrivateKey: false
+    createProverPrivateKey: false  
+    createGuardianPrivateKey: false
+    privateKeys:
+      proposer: ""
+      prover: ""
+      guardian: ""
   resources:
     requests:
       cpu: 1000m
@@ -107,3 +114,27 @@ nodeSelector: {}
 tolerations: []
 
 affinity: {}
+
+proposer:
+  env: []
+    # - name: PROPOSER_PRIVATE_KEY
+    #   valueFrom:
+    #     secretKeyRef:
+    #       name: proposer-private-key
+    #       key: private-key
+
+prover:
+  env: []
+    # - name: PROVER_PRIVATE_KEY
+    #   valueFrom:
+    #     secretKeyRef:
+    #       name: prover-private-key
+    #       key: private-key
+
+guardian:
+  env: []
+    # - name: GUARDIAN_PRIVATE_KEY
+    #   valueFrom:
+    #     secretKeyRef:
+    #       name: guardian-private-key
+    #       key: private-key

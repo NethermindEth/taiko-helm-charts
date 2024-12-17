@@ -115,26 +115,21 @@ tolerations: []
 
 affinity: {}
 
-proposer:
-  env: []
-    # - name: PROPOSER_PRIVATE_KEY
-    #   valueFrom:
-    #     secretKeyRef:
-    #       name: proposer-private-key
-    #       key: private-key
-
-prover:
-  env: []
-    # - name: PROVER_PRIVATE_KEY
-    #   valueFrom:
-    #     secretKeyRef:
-    #       name: prover-private-key
-    #       key: private-key
-
-guardian:
-  env: []
-    # - name: GUARDIAN_PRIVATE_KEY
-    #   valueFrom:
-    #     secretKeyRef:
-    #       name: guardian-private-key
-    #       key: private-key
+env: []
+  # - name: PROPOSER_PRIVATE_KEY
+  #   valueFrom:
+  #     secretKeyRef:
+  #       name: proposer-private-key
+  #       key: private-key
+  #
+  # - name: PROVER_PRIVATE_KEY
+  #   valueFrom:
+  #     secretKeyRef:
+  #       name: prover-private-key
+  #       key: private-key
+  #
+  # - name: GUARDIAN_PRIVATE_KEY
+  #   valueFrom:
+  #     secretKeyRef:
+  #       name: guardian-private-key
+  #       key: private-key

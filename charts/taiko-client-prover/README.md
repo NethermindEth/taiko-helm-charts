@@ -14,7 +14,7 @@ A Helm chart for Kubernetes
 
 | Repository | Name | Version |
 |------------|------|---------|
-| file://../taiko-client | taiko-client | 0.1.3 |
+| file://../taiko-client | taiko-client | 0.2.0 |
 
 ## Values
 

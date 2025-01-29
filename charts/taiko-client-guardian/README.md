@@ -8,7 +8,7 @@ A Helm chart for Kubernetes
 
 | Name | Email | Url |
 | ---- | ------ | --- |
-| d1onys1us |  |  |
+| 0xDones |  |  |
 
 ## Requirements
 

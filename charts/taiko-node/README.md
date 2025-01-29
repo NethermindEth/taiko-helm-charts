@@ -1,6 +1,6 @@
 # taiko-node
 
-![Version: 0.1.5](https://img.shields.io/badge/Version-0.1.5-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
+![Version: 0.1.6](https://img.shields.io/badge/Version-0.1.6-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
 
 This is an umbrella chart for running a Taiko node.
 
@@ -8,14 +8,15 @@ This is an umbrella chart for running a Taiko node.
 
 | Name | Email | Url |
 | ---- | ------ | --- |
-| d1onys1us |  |  |
+| 0xDones |  |  |
+| AntiD2ta |  |  |
 
 ## Requirements
 
 | Repository | Name | Version |
 |------------|------|---------|
-| file://../taiko-client | taiko-client | 0.2.0 |
-| file://../taiko-geth | taiko-geth | 0.1.1 |
+| file://../taiko-client | taiko-client | 0.2.1 |
+| file://../taiko-geth | taiko-geth | 0.1.2 |
 | file://../taiko-nethermind | taiko-nethermind | 0.0.1 |
 
 ## Values

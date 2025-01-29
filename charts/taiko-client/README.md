@@ -1,6 +1,6 @@
 # taiko-client
 
-![Version: 0.2.0](https://img.shields.io/badge/Version-0.2.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
+![Version: 0.2.1](https://img.shields.io/badge/Version-0.2.1-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
 
 A Helm chart for Kubernetes
 
@@ -8,7 +8,8 @@ A Helm chart for Kubernetes
 
 | Name | Email | Url |
 | ---- | ------ | --- |
-| d1onys1us |  |  |
+| 0xDones |  |  |
+| AntiD2ta |  |  |
 
 ## Values
 
@@ -89,6 +90,7 @@ A Helm chart for Kubernetes
 | hekla.l1ContractAddresses.taikoL1 | string | `"0x79C9109b764609df928d16fC4a91e9081F7e87DB"` |  |
 | hekla.l1ContractAddresses.taikoToken | string | `"0x6490E12d480549D333499236fF2Ba6676C296011"` |  |
 | hekla.l2ContractAddresses.taikoL2 | string | `"0x1670090000000000000000000000000000010001"` |  |
+| imagePullSecrets | list | `[]` |  |
 | mainnet.driver.checkpointUrl | string | `"https://rpc.mainnet.taiko.xyz"` |  |
 | mainnet.image.pullPolicy | string | `"IfNotPresent"` |  |
 | mainnet.image.repository | string | `"us-docker.pkg.dev/evmchain/images/taiko-client"` |  |

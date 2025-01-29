@@ -15,7 +15,7 @@ global:
   secret:
     jwt: ecb22bc24e7d4061f7ed690ccd5846d7d73f5d2b9733267e12f56790398d908a
     createProposerPrivateKey: false
-    createProverPrivateKey: false  
+    createProverPrivateKey: false
     createGuardianPrivateKey: false
     privateKeys:
       proposer: ""
@@ -108,6 +108,9 @@ mainnet:
     taikoL2: "0x1670000000000000000000000000000000010001"
   driver:
     checkpointUrl: "https://rpc.mainnet.taiko.xyz"
+
+imagePullSecrets: []
+  # - name: regcred
 
 nodeSelector: {}
 

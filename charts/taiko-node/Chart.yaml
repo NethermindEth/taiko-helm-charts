@@ -2,13 +2,14 @@ apiVersion: v2
 name: taiko-node
 description: This is an umbrella chart for running a Taiko node.
 type: application
-version: 0.1.5
+version: 0.1.6
 maintainers:
-  - name: d1onys1us
+  - name: 0xDones
+  - name: AntiD2ta
 
 dependencies:
   - name: taiko-geth
-    version: "0.1.1"
+    version: "0.1.2"
     repository: "file://../taiko-geth"
     condition: taiko-geth.enabled
   - name: taiko-nethermind
@@ -16,5 +17,5 @@ dependencies:
     repository: "file://../taiko-nethermind"
     condition: taiko-nethermind.enabled
   - name: taiko-client
-    version: "0.2.0"
+    version: "0.2.1"
     repository: "file://../taiko-client"

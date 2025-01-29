@@ -28,6 +28,10 @@ spec:
       labels:
         {{- include "taiko-geth.labels" . | nindent 8 }}
     spec:
+      {{- with .Values.imagePullSecrets }}
+      imagePullSecrets:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
       volumes:
       - name: jwtsecret
         secret:

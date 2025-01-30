@@ -7,8 +7,9 @@ metadata:
     {{- include "taiko-nethermind.labels" . | nindent 4 }}
 data:
   init.sh: |
-    #!/usr/bin/env bash
+    #!/bin/sh
 
+    echo "Namespace: ${POD_NAMESPACE} Pod: ${POD_NAME}";
     echo "Starting init script for pod ${POD_NAME}..."
     touch /shared/env
 

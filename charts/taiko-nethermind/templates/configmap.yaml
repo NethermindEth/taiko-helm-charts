@@ -13,7 +13,7 @@ data:
     touch /shared/env
 
     echo "Getting node external ip..."
-    EXTERNAL_NODE_IP=$(kubectl get node $NODE_NAME -o jsonpath='{.status.addresses[?(@.type=="ExternalIP")].address}')
+    EXTERNAL_NODE_IP=$(kubectl get nodes "${NODE_NAME}" -o jsonpath='{.status.addresses[?(@.type=="ExternalIP")].address}');
     echo "Getting execution node port..."
     EXTERNAL_NODE_PORT=$(kubectl get services -l "pod=${POD_NAME},client=taiko-nethermind,type=p2p" -o jsonpath='{.items[0].spec.ports[0].nodePort}')
 

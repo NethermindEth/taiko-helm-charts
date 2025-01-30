@@ -9,6 +9,7 @@ A Helm chart for Kubernetes
 | Name | Email | Url |
 | ---- | ------ | --- |
 | 0xDones |  |  |
+| AntiD2ta |  |  |
 
 ## Values
 

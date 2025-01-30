@@ -128,6 +128,18 @@ entries:
     version: 0.1.2
   taiko-nethermind:
   - apiVersion: v2
+    created: "2025-01-30T04:51:18.070206016Z"
+    description: A Helm chart for Kubernetes
+    digest: 1efa6abff6cdd0584249fd825857538bae0e55b1cf735a7fb10b62109237a10d
+    maintainers:
+    - name: 0xDones
+    - name: AntiD2ta
+    name: taiko-nethermind
+    type: application
+    urls:
+    - https://github.com/NethermindEth/taiko-helm-charts/releases/download/taiko-nethermind-0.1.1/taiko-nethermind-0.1.1.tgz
+    version: 0.1.1
+  - apiVersion: v2
     created: "2025-01-30T04:15:21.567920959Z"
     description: A Helm chart for Kubernetes
     digest: 77ce4353918642d93bb73e180f223a05a94bcbc961817ad3fb33b1198833ae8f
@@ -244,4 +256,4 @@ entries:
     urls:
     - https://github.com/NethermindEth/taiko-helm-charts/releases/download/taiko-node-0.1.3/taiko-node-0.1.3.tgz
     version: 0.1.3
-generated: "2025-01-30T04:15:21.567946977Z"
+generated: "2025-01-30T04:51:18.070241001Z"

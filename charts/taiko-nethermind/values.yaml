@@ -146,8 +146,9 @@ metrics:
 ##########################
 initContainer:
   image:
-    repository: bitnami/kubectl
-    tag: 1.28
+    repository: "bitnami/kubectl"
+    tag: "1.28"
+    pullPolicy: IfNotPresent
 extraInitContainers: []
 
 # This section builds out the service account more information can be found here: https://kubernetes.io/docs/concepts/security/service-accounts/

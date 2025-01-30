@@ -1,12 +1,12 @@
 dependencies:
 - name: taiko-geth
   repository: file://../taiko-geth
-  version: 0.1.1
+  version: 0.1.2
 - name: taiko-nethermind
   repository: file://../taiko-nethermind
   version: 0.0.1
 - name: taiko-client
   repository: file://../taiko-client
-  version: 0.2.0
-digest: sha256:600c29527f5e2852888ccf426c27cc7f4fbf51af705055ad85991adb9d5d7382
-generated: "2025-01-28T21:46:14.371308-06:00"
+  version: 0.2.1
+digest: sha256:fae49d6e2c721b82ef31ee7adb1a71b3964b596c542aa6d2aa950b5562b4b911
+generated: "2025-01-29T14:52:38.211465-06:00"

@@ -1,3 +1,6 @@
+imagePullSecrets: []
+  # - name: regcred
+
 global:
   # options: [hekla, mainnet]
   network: hekla

@@ -65,9 +65,9 @@ spec:
           {{- end }}
         {{- end }}
         volumeMounts:
-          - name: jwtsecret
-            mountPath: /shared
-            readOnly: true
+          {{- with .Values.volumeMounts }}
+            {{- toYaml . | nindent 12 }}
+          {{- end }}
         args:
           # Go through each flag, if it ends in `=` then exclude it (default value)
           {{- range $arg := (index .Values.clientArgs .Values.global.mode) }}

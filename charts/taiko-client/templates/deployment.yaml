@@ -21,9 +21,9 @@ spec:
         {{- toYaml . | nindent 8 }}
       {{- end }}
       volumes:
-      {{- with .Values.volumes }}
-        {{- toYaml . | nindent 8 }}
-      {{- end }}
+        {{- with .Values.volumes }}
+          {{- toYaml . | nindent 8 }}
+        {{- end }}
       containers:
       - name: {{ printf "taiko-client-%s" .Values.global.mode }}
         image: "{{ (index .Values .Values.global.network).image.repository }}:{{ (index .Values .Values.global.network).image.tag }}"

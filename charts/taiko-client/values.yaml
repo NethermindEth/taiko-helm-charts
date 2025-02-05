@@ -30,8 +30,8 @@ global:
       memory: 500Mi
   replicaCount: 1
 
-clientArgs:
-  common:
+clientArgs: # TODO: improve args to include necessary args
+  common: 
     - --l1.ws={{ tpl .Values.global.l1Endpoints.l1Ws . }}
     - --taikoL1={{ (index .Values .Values.global.network).l1ContractAddresses.taikoL1 }}
     - --taikoL2={{ (index .Values .Values.global.network).l2ContractAddresses.taikoL2 }}
@@ -118,8 +118,8 @@ tolerations: []
 
 affinity: {}
 
-volumes: []
-  # - name: jwtsecret
+volumes: [] 
+  # - name: jwtsecret # TODO: improve default secret configuration
   #   secret:
   #     secretName: {{ include "taiko-client.fullname" . }}-jwt
 

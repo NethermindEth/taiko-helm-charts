@@ -21,9 +21,9 @@ spec:
         {{- toYaml . | nindent 8 }}
       {{- end }}
       volumes:
-      - name: jwtsecret
-        secret:
-          secretName: {{ include "taiko-client.fullname" . }}-jwt
+      {{- with .Values.volumes }}
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
       containers:
       - name: {{ printf "taiko-client-%s" .Values.global.mode }}
         image: "{{ (index .Values .Values.global.network).image.repository }}:{{ (index .Values .Values.global.network).image.tag }}"
@@ -66,7 +66,7 @@ spec:
         {{- end }}
         volumeMounts:
           - name: jwtsecret
-            mountPath: /jwtsecret
+            mountPath: /shared
             readOnly: true
         args:
           # Go through each flag, if it ends in `=` then exclude it (default value)

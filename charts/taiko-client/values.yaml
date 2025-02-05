@@ -121,7 +121,7 @@ affinity: {}
 volumes: []
   # - name: jwtsecret
   #   secret:
-  #     secretName: jwtsecret
+  #     secretName: {{ include "taiko-client.fullname" . }}-jwt
 
 volumeMounts: []
   # - name: jwtsecret

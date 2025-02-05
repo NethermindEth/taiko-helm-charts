@@ -119,7 +119,7 @@ tolerations: []
 affinity: {}
 
 volumes: [] 
-  # - name: jwtsecret # TODO: improve default secret configuration
+  # - name: jwtsecret # TODO: improve default jwtsecret configuration UX
   #   secret:
   #     secretName: {{ include "taiko-client.fullname" . }}-jwt
 

@@ -42,7 +42,7 @@ clientArgs:
     - --l1.beacon={{ tpl .Values.global.l1Endpoints.l1Beacon . }}
     - --l2.ws={{ tpl .Values.global.l2Endpoints.l2Ws . }}
     - --l2.auth={{ tpl .Values.global.l2Endpoints.l2Auth . }}
-    - --jwtSecret=/jwtsecret/default
+    # - --jwtSecret=/jwtsecret/default
   proposer:
     - proposer
     - --l2.http={{ tpl .Values.global.l2Endpoints.l2Http . }}
@@ -53,7 +53,7 @@ clientArgs:
     - --tx.gasLimit={{ (index .Values .Values.global.network).proposer.txGasLimit }}
     - --proverSet={{ (index .Values .Values.global.network).proposer.proverSetAddress }}
     - --l1.blobAllowed={{ (index .Values .Values.global.network).proposer.blobAllowed }}
-    - --jwtSecret=/jwtsecret/default
+    # - --jwtSecret=/jwtsecret/default
   prover:
     - prover
     - --l1.http={{ tpl .Values.global.l1Endpoints.l1Http . }}
@@ -117,6 +117,16 @@ nodeSelector: {}
 tolerations: []
 
 affinity: {}
+
+volumes: []
+  # - name: jwtsecret
+  #   secret:
+  #     secretName: jwtsecret
+
+volumeMounts: []
+  # - name: jwtsecret
+  #   readOnly: true
+  #   mountPath: /jwtsecret
 
 env: []
   # - name: PROPOSER_PRIVATE_KEY

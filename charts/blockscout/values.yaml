@@ -29,7 +29,7 @@ customCommand: [] # Only change this if you need to change the default command
 config:
   MIX_ENV: prod
   PORT: '{{ include "blockscout.httpPort" . }}'
-  DATABASE_URL: postgresql://postgres:postgres@{{ .Release.Name }}-postgresql:5432/blockscout?ssl=false
+  #DATABASE_URL: postgresql://postgres:postgres@{{ .Release.Name }}-postgresql:5432/blockscout?ssl=false
   SECRET_KEY_BASE: RMgI4C1HSkxsEjdhtGMfwAHfyT6CKWXOgzCboJflfSm4jeAlic52io05KB6mqzc5
   ECTO_USE_SSL: "false"
   ETHEREUM_JSONRPC_VARIANT: geth

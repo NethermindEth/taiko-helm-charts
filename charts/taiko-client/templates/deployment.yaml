@@ -28,6 +28,19 @@ spec:
       - name: {{ printf "taiko-client-%s" .Values.global.mode }}
         image: "{{ (index .Values .Values.global.network).image.repository }}:{{ (index .Values .Values.global.network).image.tag }}"
         imagePullPolicy: "{{ (index .Values .Values.global.network).image.pullPolicy }}"
+        {{- if or (eq .Values.global.mode "prover") .Values.serviceMonitor.enabled }}
+        ports:
+        {{- if .Values.serviceMonitor.enabled }}
+          - name: metrics
+            containerPort: {{ .Values.serviceMonitor.port }}
+            protocol: TCP
+        {{- end }}
+        {{- if eq .Values.global.mode "prover" }}
+          - name: prover
+            containerPort: 9876
+            protocol: TCP
+        {{- end }}
+        {{- end }}
         {{- if eq .Values.global.mode "proposer" }}
         env:
           {{- if .Values.env }}

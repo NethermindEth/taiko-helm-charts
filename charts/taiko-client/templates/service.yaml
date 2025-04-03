@@ -10,13 +10,13 @@ spec:
   {{- if eq .Values.global.mode "prover" }}
     - protocol: TCP
       port: 9876
-      targetPort: 9876
+      targetPort: prover
       name: prover
   {{- end }}
   {{- if .Values.serviceMonitor.enabled }}
     - protocol: TCP
       port: {{ .Values.serviceMonitor.port }}
-      targetPort: {{ .Values.serviceMonitor.port }}
+      targetPort: metrics
       name: metrics
   {{- end }}
   {{- if .Values.extraPorts }}

@@ -3,6 +3,8 @@ apiVersion: v1
 kind: Service
 metadata:
   name: {{ include "taiko-client.fullname" . }}
+  labels:
+    {{- include "taiko-client.labels" . | nindent 4 }}
 spec:
   selector:
     {{- include "taiko-client.selectorLabels" . | nindent 4 }}

@@ -1,6 +1,6 @@
 # taiko-client
 
-![Version: 0.3.0](https://img.shields.io/badge/Version-0.3.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
+![Version: 0.3.1](https://img.shields.io/badge/Version-0.3.1-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
 
 A Helm chart for Kubernetes
 
@@ -10,6 +10,7 @@ A Helm chart for Kubernetes
 | ---- | ------ | --- |
 | 0xDones |  |  |
 | AntiD2ta |  |  |
+| gehlotanish |  |  |
 
 ## Values
 
@@ -61,6 +62,7 @@ A Helm chart for Kubernetes
 | clientArgs.prover[8] | string | `"--tx.gasLimit={{ (index .Values .Values.global.network).prover.txGasLimit }}"` |  |
 | clientArgs.prover[9] | string | `"--tx.minBaseFee={{ (index .Values .Values.global.network).prover.txMinBaseFee }}"` |  |
 | env | list | `[]` |  |
+| extraPorts | object | `{}` |  |
 | global.l1Endpoints.l1Beacon | string | `"http://ethereum-node-beacon:5052"` |  |
 | global.l1Endpoints.l1Http | string | `"http://ethereum-node-execution:8545"` |  |
 | global.l1Endpoints.l1Ws | string | `"ws://ethereum-node-execution:8546"` |  |
@@ -97,6 +99,17 @@ A Helm chart for Kubernetes
 | mainnet.l1ContractAddresses.taikoToken | string | `"0x10dea67478c5F8C5E2D90e5E9B26dBe60c54d800"` |  |
 | mainnet.l2ContractAddresses.taikoL2 | string | `"0x1670000000000000000000000000000000010001"` |  |
 | nodeSelector | object | `{}` |  |
+| serviceMonitor.annotations | object | `{}` | Additional ServiceMonitor annotations |
+| serviceMonitor.enabled | bool | `false` | If true, a ServiceMonitor CRD is created for a prometheus operator https://github.com/coreos/prometheus-operator |
+| serviceMonitor.interval | string | `"1m"` | ServiceMonitor scrape interval |
+| serviceMonitor.labels | object | `{}` | Additional ServiceMonitor labels |
+| serviceMonitor.namespace | string | `nil` | Alternative namespace for ServiceMonitor |
+| serviceMonitor.path | string | `"/metrics"` | Path to scrape |
+| serviceMonitor.port | int | `6060` | Port of metrics expose |
+| serviceMonitor.relabelings | list | `[]` | ServiceMonitor relabelings |
+| serviceMonitor.scheme | string | `"http"` | ServiceMonitor scheme |
+| serviceMonitor.scrapeTimeout | string | `"30s"` | ServiceMonitor scrape timeout |
+| serviceMonitor.tlsConfig | object | `{}` | ServiceMonitor TLS configuration |
 | tolerations | list | `[]` |  |
 | volumeMounts | list | `[]` |  |
 | volumes | list | `[]` |  |

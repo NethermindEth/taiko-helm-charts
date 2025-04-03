@@ -1,4 +1,4 @@
-{{- if eq .Values.global.mode "prover" }}
+{{- if or (eq .Values.global.mode "prover") .Values.serviceMonitor.enabled }}
 apiVersion: v1
 kind: Service
 metadata:
@@ -7,7 +7,18 @@ spec:
   selector:
     {{- include "taiko-client.selectorLabels" . | nindent 4 }}
   ports:
+  {{- if eq .Values.global.mode "prover" }}
     - protocol: TCP
       port: 9876
       targetPort: 9876
+  {{- end }}
+  {{- if .Values.serviceMonitor.enabled }}
+    - protocol: TCP
+      port: {{ .Values.serviceMonitor.port }}
+      targetPort: {{ .Values.serviceMonitor.port }}
+      name: metrics
+  {{- end }}
+  {{- if .Values.extraPorts }}
+    {{ toYaml .Values.extraPorts | nindent 4}}
+  {{- end }}
 {{- end }}

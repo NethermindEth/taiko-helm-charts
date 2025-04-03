@@ -65,6 +65,19 @@ entries:
     version: 0.2.2
   taiko-client:
   - apiVersion: v2
+    created: "2025-04-03T17:49:46.868262896Z"
+    description: A Helm chart for Kubernetes
+    digest: 7772bbd5e92972cf5851fbd84cee5cdc204ad735c02754b9fea2755603a4832e
+    maintainers:
+    - name: 0xDones
+    - name: AntiD2ta
+    - name: gehlotanish
+    name: taiko-client
+    type: application
+    urls:
+    - https://github.com/NethermindEth/taiko-helm-charts/releases/download/taiko-client-0.3.2/taiko-client-0.3.2.tgz
+    version: 0.3.2
+  - apiVersion: v2
     created: "2025-04-03T12:37:29.51620232Z"
     description: A Helm chart for Kubernetes
     digest: d06c8c75d68ac83195d02931185dec58cceeb60234646ffa5f640c1350c0b4cb
@@ -344,4 +357,4 @@ entries:
     urls:
     - https://github.com/NethermindEth/taiko-helm-charts/releases/download/taiko-node-0.1.3/taiko-node-0.1.3.tgz
     version: 0.1.3
-generated: "2025-04-03T12:37:29.516236324Z"
+generated: "2025-04-03T17:49:46.868304975Z"

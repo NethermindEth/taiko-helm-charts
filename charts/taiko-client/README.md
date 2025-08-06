@@ -1,6 +1,6 @@
 # taiko-client
 
-![Version: 0.3.4](https://img.shields.io/badge/Version-0.3.4-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
+![Version: 0.3.5](https://img.shields.io/badge/Version-0.3.5-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
 
 A Helm chart for Kubernetes
 
@@ -18,8 +18,6 @@ A Helm chart for Kubernetes
 |-----|------|---------|-------------|
 | affinity | object | `{}` |  |
 | clientArgs.common[0] | string | `"--l1.ws={{ tpl .Values.global.l1Endpoints.l1Ws . }}"` |  |
-| clientArgs.common[1] | string | `"--taikoL1={{ (index .Values .Values.global.network).l1ContractAddresses.taikoL1 }}"` |  |
-| clientArgs.common[2] | string | `"--taikoL2={{ (index .Values .Values.global.network).l2ContractAddresses.taikoL2 }}"` |  |
 | clientArgs.driver[0] | string | `"driver"` |  |
 | clientArgs.driver[1] | string | `"--p2p.sync"` |  |
 | clientArgs.driver[2] | string | `"--p2p.checkPointSyncUrl={{ (index .Values .Values.global.network).driver.checkpointUrl }}"` |  |

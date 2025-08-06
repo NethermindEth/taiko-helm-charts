@@ -33,8 +33,6 @@ global:
 clientArgs: # TODO: improve args to include necessary args
   common:
     - --l1.ws={{ tpl .Values.global.l1Endpoints.l1Ws . }}
-    - --taikoL1={{ (index .Values .Values.global.network).l1ContractAddresses.taikoL1 }}
-    - --taikoL2={{ (index .Values .Values.global.network).l2ContractAddresses.taikoL2 }}
   driver:
     - driver
     - --p2p.sync

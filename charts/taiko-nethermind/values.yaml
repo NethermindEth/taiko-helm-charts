@@ -204,3 +204,5 @@ extraObjects: []
 #     name: '{{ include "taiko-nethermind.fullname" . }}'
 #   stringData:
 #     SECRET_KEY: "<SECRET_VALUE>"
+
+terminationGracePeriodSeconds: 30

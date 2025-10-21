@@ -1,6 +1,6 @@
 # taiko-nethermind
 
-![Version: 0.1.1](https://img.shields.io/badge/Version-0.1.1-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
+![Version: 0.1.2](https://img.shields.io/badge/Version-0.1.2-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
 
 A Helm chart for Kubernetes
 
@@ -10,6 +10,7 @@ A Helm chart for Kubernetes
 | ---- | ------ | --- |
 | 0xDones |  |  |
 | AntiD2ta |  |  |
+| gehlotanish |  |  |
 
 ## Values
 
@@ -75,6 +76,7 @@ A Helm chart for Kubernetes
 | serviceAccount.automount | bool | `true` |  |
 | serviceAccount.create | bool | `true` |  |
 | serviceAccount.name | string | `""` |  |
+| terminationGracePeriodSeconds | int | `30` |  |
 | tolerations | list | `[]` |  |
 | volumeMounts | list | `[]` |  |
 | volumes | list | `[]` |  |

@@ -147,7 +147,7 @@ metrics:
 initContainer:
   image:
     repository: "bitnami/kubectl"
-    tag: "1.28"
+    tag: "latest"
     pullPolicy: IfNotPresent
 extraInitContainers: []
 
@@ -204,3 +204,5 @@ extraObjects: []
 #     name: '{{ include "taiko-nethermind.fullname" . }}'
 #   stringData:
 #     SECRET_KEY: "<SECRET_VALUE>"
+
+terminationGracePeriodSeconds: 30

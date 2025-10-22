@@ -1,6 +1,6 @@
 # taiko-nethermind
 
-![Version: 0.1.1](https://img.shields.io/badge/Version-0.1.1-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
+![Version: 0.1.2](https://img.shields.io/badge/Version-0.1.2-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
 
 A Helm chart for Kubernetes
 
@@ -10,6 +10,7 @@ A Helm chart for Kubernetes
 | ---- | ------ | --- |
 | 0xDones |  |  |
 | AntiD2ta |  |  |
+| gehlotanish |  |  |
 
 ## Values
 
@@ -37,7 +38,7 @@ A Helm chart for Kubernetes
 | ingress.tls | list | `[]` |  |
 | initContainer.image.pullPolicy | string | `"IfNotPresent"` |  |
 | initContainer.image.repository | string | `"bitnami/kubectl"` |  |
-| initContainer.image.tag | string | `"1.28"` |  |
+| initContainer.image.tag | string | `"latest"` |  |
 | metrics.enabled | bool | `true` |  |
 | metrics.serviceMonitor.annotations | object | `{}` | Additional ServiceMonitor annotations |
 | metrics.serviceMonitor.enabled | bool | `false` | If true, a ServiceMonitor CRD is created for a prometheus operator. https://github.com/coreos/prometheus-operator |
@@ -75,6 +76,7 @@ A Helm chart for Kubernetes
 | serviceAccount.automount | bool | `true` |  |
 | serviceAccount.create | bool | `true` |  |
 | serviceAccount.name | string | `""` |  |
+| terminationGracePeriodSeconds | int | `30` |  |
 | tolerations | list | `[]` |  |
 | volumeMounts | list | `[]` |  |
 | volumes | list | `[]` |  |

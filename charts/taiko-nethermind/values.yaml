@@ -147,7 +147,7 @@ metrics:
 initContainer:
   image:
     repository: "bitnami/kubectl"
-    tag: "1.28"
+    tag: "latest"
     pullPolicy: IfNotPresent
 extraInitContainers: []
 

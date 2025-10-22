@@ -38,7 +38,7 @@ A Helm chart for Kubernetes
 | ingress.tls | list | `[]` |  |
 | initContainer.image.pullPolicy | string | `"IfNotPresent"` |  |
 | initContainer.image.repository | string | `"bitnami/kubectl"` |  |
-| initContainer.image.tag | string | `"1.28"` |  |
+| initContainer.image.tag | string | `"latest"` |  |
 | metrics.enabled | bool | `true` |  |
 | metrics.serviceMonitor.annotations | object | `{}` | Additional ServiceMonitor annotations |
 | metrics.serviceMonitor.enabled | bool | `false` | If true, a ServiceMonitor CRD is created for a prometheus operator. https://github.com/coreos/prometheus-operator |
